@@ -39,13 +39,11 @@ app.use(
     origin: process.env.CLIENT_URL,
   })
 ); // Configuring CORS options for cross-origin requests
-app.use(function (req, res, next) {
-  //Enabling CORS
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
-  res.header(
+app.use(function (request, response, next) {
+  response.header("Access-Control-Allow-Origin", "*");
+  response.header(
     "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept, x-client-key, x-client-token, x-client-secret, Authorization"
+    "Origin, X-Requested-With, Content-Type, Accept"
   );
   next();
 });
