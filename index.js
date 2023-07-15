@@ -15,7 +15,12 @@ const ws = require("ws"); // Importing the WebSocket library
 const fs = require("fs"); // Importing the fs module for file system operations
 
 dotenv.config(); // Loading environment variables from the .env file
-
+app.use(
+  cors({
+    credentials: true,
+    origin: process.env.CLIENT_URL,
+  })
+);
 // Connecting to the MongoDB database
 mongoose
   .connect(process.env.MONGO_URL)
@@ -33,20 +38,7 @@ const app = express(); // Creating an Express application
 app.use("/uploads", express.static(__dirname + "/uploads")); // Serving static files from the "/uploads" directory
 app.use(express.json()); // Parsing JSON requests
 app.use(cookieParser()); // Parsing cookies
-app.use(
-  cors({
-    credentials: true,
-    origin: process.env.CLIENT_URL,
-  })
-); // Configuring CORS options for cross-origin requests
-app.use(function (request, response, next) {
-  response.header("Access-Control-Allow-Origin", "*");
-  response.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
-  next();
-});
+
 // Function to extract user data from the request using JWT
 async function getUserDataFromRequest(req) {
   return new Promise((resolve, reject) => {
