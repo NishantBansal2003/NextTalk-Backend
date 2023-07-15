@@ -13,7 +13,7 @@ const User = require("./models/User"); // Importing the User model
 const Message = require("./models/Message"); // Importing the Message model
 const ws = require("ws"); // Importing the WebSocket library
 const fs = require("fs"); // Importing the fs module for file system operations
-
+const app = express(); // Creating an Express application
 dotenv.config(); // Loading environment variables from the .env file
 app.use(
   cors({
@@ -34,7 +34,7 @@ mongoose
 const jwtSecret = process.env.JWT_SECRET; // Secret key for signing JWT
 const bcryptSalt = bcrypt.genSaltSync(10); // Salt for password hashing
 
-const app = express(); // Creating an Express application
+
 app.use("/uploads", express.static(__dirname + "/uploads")); // Serving static files from the "/uploads" directory
 app.use(express.json()); // Parsing JSON requests
 app.use(cookieParser()); // Parsing cookies
